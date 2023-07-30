@@ -40,10 +40,14 @@ module sdramController(
     parameter stateInitLMR          = 4'd6;
     parameter stateInitTmrd         = 4'd7;
 
-    parameter wait100us = 3'd0;
-    parameter wait16us  = 3'd1;
-    parameter wait6ns   = 3'd2;
-    parameter waitmrd   = 3'd3;
+    /*
+        1MHz clock
+            => T = 1/1MHz = 10ns
+    */
+    parameter wait100us = 3'd100;               // 100us/10ns = 10000 cycles
+    parameter waitTrfc  = 3'd7;                 // 70ns/10ns  = 7 cycles
+    parameter waitTrp   = 3'd2;                 // 20ns/10ns  = 2 cycles
+    parameter waitTmrd  = 3'd2;                 // 20ns/10ns  = 2 cycles
 
 
     // SDRAM commands
@@ -88,7 +92,7 @@ module sdramController(
 
                     stateInitWait100us:
                     begin
-                        timeout = waitTime(clk, wait100us);         // Call a function to cause a 100us delay
+                        delayNanoseconds(clk, wait100us, timeout);  // Call a function to cause a 100us delay
                         if (timeout)
                         begin
                             initState   <= stateInitPrecharge;      // Assign next state
@@ -108,20 +112,20 @@ module sdramController(
                     stateInitWaitTrp:
                     begin
                         sdram_CMD = cmd_NOP;                                    // Set NOP command while waiting
-                        timeout = waitTime(clk, wait6ns);                       // Call a function ot cause a 6ns delay
+                        delayNanoseconds(clk, waitTrp, timeout);                // Call a function ot cause a 6ns delay
                         if (timeout)    initState <= stateInitAutoRefresh1;     // Assign next state
                     end
 
                     stateInitAutoRefresh1:
                     begin
-                        timeout = waitTime(clk, wait16us);                      // call a function to cause a 16us delay
+                        delayNanoseconds(clk, waitTrfc, timeout);               // call a function to cause a 16us delay
                         sdram_CMD <= cmd_NOP;                                   // Set NOP command while waiting
                         if (timeout)    initState <= stateInitAutoRefresh2;     // Assign next state
                     end
 
                     stateInitAutoRefresh2:
                     begin
-                        timeout = waitTime(clk, wait16us);                      // call a function to cause a 16us delay
+                        delayNanoseconds(clk, waitTrfc, timeout);               // call a function to cause a 16us delay
                         sdram_CMD <= cmd_NOP;                                   // Set NOP command while waiting
                         if (timeout)    initState <= stateInitLMR;              // Assign next state
                     end
@@ -129,7 +133,7 @@ module sdramController(
                     stateInitLMR:
                     begin
                         sdram_CMD = cmd_LMR;                                    // Set LMR command
-                        timeout = waitTime(clk, waitmrd);                       // Wait for the commmand to be executed
+                        delayNanoseconds(clk, waitTmrd, timeout);               // Wait for the commmand to be executed
                         if (timeout) state <= state_IDLE;                       // Exit the state machine and set IDLE state on completion
                     end
                 endcase
