@@ -1,8 +1,8 @@
 Copyright 1986-2022 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2022.2 (lin64) Build 3671981 Fri Oct 14 04:59:54 MDT 2022
-| Date         : Thu Jul 27 17:56:18 2023
-| Host         : bhat-Lenovo running 64-bit Linux Mint 21.1
+| Date         : Sun Jul 30 11:29:55 2023
+| Host         : bhat-Lenovo running 64-bit Linux Mint 21.2
 | Command      : report_utilization -file sdramController_utilization_synth.rpt -pb sdramController_utilization_synth.pb
 | Design       : sdramController
 | Device       : xc7z010iclg225-1L

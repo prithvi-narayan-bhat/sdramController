@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/bhat/Documents/Academics/Semester-III/CSE-5358/SDRAM_Controller/sdramController.runs/synth_1'
+HD_PWD='/home/bhat/Documents/Academics/Semester-III/CSE-5358/sdramController/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
