@@ -5,6 +5,7 @@ module sdramController(
         input ADSn,                             // Address strobe   | Active low    | from uP
         input M_IOn,                            // memory/IO        | IO Active low | from uP
         input W_Rn,                             // Write/Read       | R Active low  | from uP
+        input CSn,                              // Chip Select      | Active low    | from uP
         input [29:00] ADD,                      // 30 bit address                   | from uP
         input [03:00] BE,                       // Byte Enable signal               | from uP
 
@@ -40,24 +41,32 @@ module sdramController(
     parameter stateInitLMR          = 4'd6;
     parameter stateInitTmrd         = 4'd7;
 
+    // States in the AutoRefresh state
+    parameter stateRefreshPrecharge     = 2'd0;
+    parameter stateRefreshAutoRefresh   = 2'd1;
+    parameter stateRefreshWaitRfc       = 2'd2;
+
     /*
         1MHz clock
             => T = 1/1MHz = 10ns
     */
-    parameter wait100us = 3'd100;               // 100us/10ns = 10000 cycles
-    parameter waitTrfc  = 3'd7;                 // 70ns/10ns  = 7 cycles
-    parameter waitTrp   = 3'd2;                 // 20ns/10ns  = 2 cycles
-    parameter waitTmrd  = 3'd2;                 // 20ns/10ns  = 2 cycles
+    parameter wait100us = 5'd10000;             // 100us/10ns = 10000 cycles
+    parameter waitTrfc  = 5'd7;                 // 70ns/10ns  = 7 cycles
+    parameter waitTrp   = 5'd2;                 // 20ns/10ns  = 2 cycles
+    parameter waitTmrd  = 5'd2;                 // 20ns/10ns  = 2 cycles
+    parameter waitTrr   = 5'd1563;              // 15.625us/10ns = 1563 cycles
 
 
     // SDRAM commands
     parameter cmd_NOP       = 3'b111;           // WEn = H, RASn = H, CASn = H
     parameter cmd_PRECHARGE = 3'b001;           // WEn = L, RASn = L, CASn = H
     parameter cmd_LMR       = 3'b000;           // WEn = L, RASn = L, CASn = L
+    parameter cmd_AREFRESH  = 3'b100;           // WEn = H, RASn = L, CASn = L
 
-    reg [02:00] state;                          // Variable to hold state value
+    reg [03:00] state;                          // Variable to hold state value
     reg [04:00] initState;                      // Variable to hold internal state value in the INIT state
-    reg lock, timeout;                          // Variables for lock, timeout signal
+    reg [02:00] refreshState;                   // Variable to hold internal state value in the REFRESH state
+    reg lock, timeout, refresh_request;         // Variables for lock, timeout signal and refresh request signal
 
     always_ff @ (posedge clk)
     begin
@@ -66,6 +75,7 @@ module sdramController(
         begin
             state = state_INIT;                                     // Set INIT state on reset
             lock  = 1'b1;                                           // Generate lock signal
+            refresh_request = 1'b1;                                 // Set refresh resquest on reset
         end
         else
         begin
@@ -92,7 +102,7 @@ module sdramController(
 
                     stateInitWait100us:
                     begin
-                        delayNanoseconds(clk, wait100us, timeout);  // Call a function to cause a 100us delay
+                        delayNanoseconds(wait100us, timeout);  // Call a function to cause a 100us delay
                         if (timeout)
                         begin
                             initState   <= stateInitPrecharge;      // Assign next state
@@ -112,29 +122,65 @@ module sdramController(
                     stateInitWaitTrp:
                     begin
                         sdram_CMD = cmd_NOP;                                    // Set NOP command while waiting
-                        delayNanoseconds(clk, waitTrp, timeout);                // Call a function ot cause a 6ns delay
+                        delayNanoseconds(waitTrp, timeout);                // Call a function ot cause a 6ns delay
                         if (timeout)    initState <= stateInitAutoRefresh1;     // Assign next state
                     end
 
                     stateInitAutoRefresh1:
                     begin
-                        delayNanoseconds(clk, waitTrfc, timeout);               // call a function to cause a 16us delay
+                        delayNanoseconds(waitTrfc, timeout);               // call a function to cause a 16us delay
                         sdram_CMD <= cmd_NOP;                                   // Set NOP command while waiting
                         if (timeout)    initState <= stateInitAutoRefresh2;     // Assign next state
                     end
 
                     stateInitAutoRefresh2:
                     begin
-                        delayNanoseconds(clk, waitTrfc, timeout);               // call a function to cause a 16us delay
+                        delayNanoseconds(waitTrfc, timeout);               // call a function to cause a 16us delay
                         sdram_CMD <= cmd_NOP;                                   // Set NOP command while waiting
                         if (timeout)    initState <= stateInitLMR;              // Assign next state
                     end
 
                     stateInitLMR:
                     begin
-                        sdram_CMD = cmd_LMR;                                    // Set LMR command
-                        delayNanoseconds(clk, waitTmrd, timeout);               // Wait for the commmand to be executed
-                        if (timeout) state <= state_IDLE;                       // Exit the state machine and set IDLE state on completion
+                        sdram_CMD <= cmd_LMR;                                   // Set LMR command
+                        delayNanoseconds(waitTmrd, timeout);               // Wait for the commmand to be executed
+                        if (timeout)    state <= state_IDLE;                    // Exit the state machine and set IDLE state on completion
+                    end
+                endcase
+            end
+
+            state_IDLE:
+            begin
+                delayNanoseconds(waitTrr, timeout);                        // Call a function to count 15.625us
+                if (timeout)    refresh_request <= 1'b1;                        // Set refresh_request
+                else            refresh_request <= 1'b0;                        // Clear refresh_request
+
+                if (refresh_request)    state <= state_REFRESH;                 // Set main state to Auto Refresh
+                sdram_CMD <= cmd_NOP;                                           // Set NOP command just in case
+            end
+
+            // An internal state machine to handle states in the REFRESH state
+            state_REFRESH:
+            begin
+                case (refreshState)
+                    stateRefreshPrecharge:
+                    begin
+                        sdram_CMD <= cmd_PRECHARGE;
+                        delayNanoseconds(waitTrp, timeout);                // Call a function ot cause a 6ns delay
+                        if (timeout)   refreshState <= stateRefreshAutoRefresh; // Assign next state
+                    end
+
+                    stateRefreshAutoRefresh:
+                    begin
+                        sdram_CMD <= cmd_AREFRESH;                              // Set Auto refresh command
+                        refreshState <= stateRefreshWaitRfc;                    // Assign next state
+                    end
+
+                    stateRefreshWaitRfc:
+                    begin
+                        delayNanoseconds(waitTrfc, timeout);               // Call a function to cause a 16us delay
+                        refresh_request <= 1'b0;                                // Clear refresh request
+                        if (timeout) state <= state_IDLE;                       // Return to IDLE state
                     end
                 endcase
             end

@@ -1,0 +1,89 @@
+# Prerequisites
+*.d
+
+# Object files
+*.o
+*.ko
+*.obj
+*.elf
+*.hex
+*.bin
+
+# Linker output
+*.ilk
+*.map
+*.exp
+
+# Precompiled Headers
+*.gch
+*.pch
+
+# Libraries
+*.lib
+*.a
+*.la
+*.lo
+
+# Shared objects (inc. Windows DLLs)
+*.dll
+*.so
+*.so.*
+*.dylib
+
+# Executables
+*.exe
+*.out
+*.app
+*.i*86
+*.x86_64
+
+# Debug files
+*.dSYM/
+*.su
+*.idb
+*.pdb
+
+# Kernel Module Compile Results
+*.mod*
+*.cmd
+.tmp_versions/
+modules.order
+Module.symvers
+Mkfile.old
+dkms.conf
+
+# Verilog files
+output_files/
+db/
+incremental_db/
+*.ddb
+*.cmp.*
+*.map.*
+*.rpt
+*.pin
+*.pof
+*.sof
+*.sta*
+*.flow.*
+*.fit.*
+*.eda.*
+*.done
+*.qmsg
+*.smart_action.*
+*.tdb
+*.rpt
+*.hdb
+*.cdb
+*.logdb
+*db
+*.bak
+*.qws
+
+# Vivado Runtime Folders
+sdramController.cache/
+sdramController.gen/
+sdramController.hw/
+sdramController.ip_user_files/
+sdramController.sim/
+sdramController.srcs/
+synth_1/
