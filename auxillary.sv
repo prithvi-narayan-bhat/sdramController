@@ -1,15 +1,14 @@
 task delayNanoseconds (
-        input clk,              // 100MHz Clock
         input delayTimeNs,      // Return value
         output logic timeout    // Return value
     );
 
-    int i;
-    timeout = 0;
-    for (i = 0; i < (delayTimeNs); i++)
-        @(posedge clk);         // Wait for a positive edge of the clock
+    int i = delayTimeNs;
+    timeout = 0;                // Clear timeout
+    while ( i > 0)
+        i--;                    // Decrement
 
-    timeout = 1;
+    timeout = 1;                // Set timeout
 
     if (timeout)    return;     // Indicate delay has been effected
 
