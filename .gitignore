@@ -87,3 +87,8 @@ sdramController.ip_user_files/
 sdramController.sim/
 sdramController.srcs/
 synth_1/
+sdramController.runs/
+
+# Stray files
+sdramController.cache/wt/synthesis.wdf
+sdramController.srcs/utils_1/imports/synth_1/sdramController.dcp
