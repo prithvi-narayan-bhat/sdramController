@@ -80,12 +80,12 @@ module sdramController(
         1MHz clock
             => T = 1/1MHz = 10ns
     */
-    parameter wait100us = 5'd10000;             // 100us/10ns = 10000 cycles
-    parameter waitTrfc  = 5'd7;                 // 70ns/10ns  = 7 cycles
-    parameter waitTrp   = 5'd2;                 // 20ns/10ns  = 2 cycles
-    parameter waitTmrd  = 5'd2;                 // 20ns/10ns  = 2 cycles
-    parameter waitTrr   = 5'd1563;              // 15.625us/10ns = 1563 cycles
-    parameter waitTrcd  = 5'd2;                 // 20ns/10ns  = 2 cycles
+    parameter wait100us = 12'd10000;            // 100us/10ns = 10000 cycles
+    parameter waitTrfc  = 12'd7;                // 70ns/10ns  = 7 cycles
+    parameter waitTrp   = 12'd2;                // 20ns/10ns  = 2 cycles
+    parameter waitTmrd  = 12'd2;                // 20ns/10ns  = 2 cycles
+    parameter waitTrr   = 12'd1563;             // 15.625us/10ns = 1563 cycles
+    parameter waitTrcd  = 12'd2;                // 20ns/10ns  = 2 cycles
 
 
     // SDRAM commands
@@ -148,6 +148,7 @@ module sdramController(
             begin
                 sdram_CLKE <= 1'b1;                             // Set clock enable high
                 state <= stateInitStartTrp;                     // Assign next state
+                sdram_CLKE <= 1'd1;                             // Set clock enable high
             end
 
             stateInitStartTrp:
@@ -162,6 +163,7 @@ module sdramController(
             stateInitRefresh1:
             begin
                 state <= stateInitStartTrfc1;                   // Assign next state
+                sdram_CLKE <= 1'd1;                             // Set clock enable high
             end
 
             stateInitStartTrfc1:
@@ -171,11 +173,13 @@ module sdramController(
                 do
                     if (timeout) state <= stateInitRefresh2;    // Assign next state
                 while (!timeout);                               // Wait until timeout has occured
+                sdram_CLKE <= 1'd1;                             // Set clock enable high
             end
 
             stateInitRefresh2:
             begin
                 state <= stateInitStartTrfc2;                   // Assign next state
+                sdram_CLKE <= 1'd1;                             // Set clock enable high
             end
 
             stateInitStartTrfc2:
@@ -185,11 +189,13 @@ module sdramController(
                 do
                     if (timeout)    state <= stateInitLMR;      // Assign next state
                 while (!timeout);                               // Wait until timeout has occured
+                sdram_CLKE <= 1'd1;                             // Set clock enable high
             end
 
             stateInitLMR:
             begin
                 state <= stateInitStartTmrd;                    // Assign next state
+                sdram_CLKE <= 1'd1;                             // Set clock enable high
             end
 
             stateInitStartTmrd:
@@ -199,6 +205,7 @@ module sdramController(
                 do
                     if (timeout) state <= stateIdle;            // Exit the state machine and set IDLE state on completion
                 while (!timeout);                               // Wait until timeout has occured
+                sdram_CLKE <= 1'd1;                             // Set clock enable high
             end
 
             /*=============================================================================================================*
@@ -274,13 +281,13 @@ module sdramController(
              *=============================================================================================================*/
             stateWrite:
             begin
-                sdram_BA <= ADD[21:20];                         // Set bits 21:20 of input address to Bank enable
+                sdram_BA <= ADD[20:19];                         // Set bits 21:20 of input address to Bank enable
                 state <= stateWriteActive;                      // Assign next state
             end
 
             stateWriteActive:
             begin
-                sdram_BA <= ADD[21:20];                         // Set bits 21:20 of input address to Bank enable
+                sdram_BA <= ADD[20:19];                         // Set bits 21:20 of input address to Bank enable
                 state <= stateWriteNop1;                        // Assign next state
             end
 
@@ -322,7 +329,7 @@ module sdramController(
                 state <= stateWritePrecharge;                   // Assign next state
             end
 
-            stateWritePrecharge:
+            stateWritePrecharge:                                // Initiate a manual precharge after Read operation
             begin
                 sdram_CLKE <= 1'b1;                             // Set clock enable high
                 state      <= stateWriteStartTrp;               // Assign next state
@@ -349,13 +356,13 @@ module sdramController(
 
             stateRead:
             begin
-                sdram_BA <= ADD[21:20];                         // Set bits 21:20 of input address to Bank enable
+                sdram_BA <= ADD[20:19];                         // Set bits 21:20 of input address to Bank enable
                 state <= stateReadActive;                       // Assign next state
             end
 
             stateReadActive:
             begin
-                sdram_BA <= ADD[21:20];                         // Set bits 21:20 of input address to Bank enable
+                sdram_BA <= ADD[20:19];                         // Set bits 21:20 of input address to Bank enable
                 state <= stateReadNop1;                         // Assign next state
             end
 
@@ -370,19 +377,19 @@ module sdramController(
 
             stateReadCmd:
             begin
-                sdram_BA <= ADD[21:20];                         // Set bits 21:20 of input address to Bank enable
+                sdram_BA <= ADD[20:19];                         // Set bits 21:20 of input address to Bank enable
                 state <= stateReadNop2;                         // Assign next state
             end
 
             stateReadNop2:
             begin
-                sdram_BA <= ADD[21:20];                         // Set bits 21:20 of input address to Bank enable
+                sdram_BA <= ADD[20:19];                         // Set bits 21:20 of input address to Bank enable
                 state <= stateReadNop3;                         // Assign next state
             end
 
             stateReadNop3:
             begin
-                sdram_BA <= ADD[21:20];                         // Set bits 21:20 of input address to Bank enable
+                sdram_BA <= ADD[20:19];                         // Set bits 21:20 of input address to Bank enable
                 state <= stateRead1;                            // Assign next state
             end
 
@@ -415,7 +422,13 @@ module sdramController(
                 state <= stateReadPrecharge;                    // Assign next state
             end
 
-            stateReadPrecharge:
+            stateReadPrecharge:                                 // Initiate a manual precharge after Read operation
+            begin
+                sdram_CLKE <= 1'b1;                             // Set clock enable high
+                state      <= stateReadStartTrp;                // Assign next state
+            end
+
+            stateReadStartTrp:
             begin
                 delayNanoseconds(waitTrp, timeout);             // Call a function ot cause a 6ns delay
 
@@ -440,13 +453,13 @@ module sdramController(
     // Combinational block to set 3 bit sdram_CMD bits
     always_comb
     begin
-        casez (state)
-            stateInitWait100us, stateInitStartTrp, stateInitStartTrfc1, stateInitStartTrfc2, stateIdle, stateAutoRefreshStartTrp, stateWrite, stateWriteNop1, stateWriteNop2, stateWriteNop3, stateRead, stateReadNop1, stateReadNop2, stateReadNop3, stateRead1, stateRead2, stateRead3, stateRead4, stateReadNop4, stateReadNop5:
+        case (state)
+            stateInitWait100us, stateInitStartTrp, stateInitStartTrfc1, stateInitStartTrfc2, stateIdle, stateAutoRefreshStartTrp, stateWrite, stateWriteNop1, stateWriteNop2, stateWriteNop3, stateRead, stateReadNop1, stateReadNop2, stateReadNop3, stateRead1, stateRead2, stateRead3, stateRead4, stateReadNop4, stateReadStartTrp, stateReadNop5:
             begin
                 sdram_CMD <= cmd_NOP;                           // Issue NOP command
             end
 
-            stateInitPrecharge, stateAutoRefreshPrecharge:
+            stateInitPrecharge, stateAutoRefreshPrecharge, stateWritePrecharge, stateReadPrecharge:
             begin
                 sdram_CMD <= cmd_PRECHARGE;                     // Issue Precharge command
             end
@@ -484,38 +497,80 @@ module sdramController(
     end
 
     // Combinational block to set the 12 bit Multiplexed address bits
-    always_ff @ (posedge clk)
+    always_comb
     begin
-        sdram_MUXADD[09] = 1'b0;                                // Unused bits
-        sdram_MUXADD[11] = 1'b0;                                // Unused bits
         case (state)
             stateInitPrecharge:
             begin
                 sdram_MUXADD[10] <= 1'b1;                       // Set A10 high to precharge all rows and columns
+                sdram_MUXADD[08:00] <= 9'bx;                    // Don't care for other bits in this state
+                sdram_MUXADD[09] <= 1'b0;                       // Unused bits
+                sdram_MUXADD[11] <= 1'b0;                       // Unused bits
             end
 
             stateWriteActive:
             begin
-                sdram_MUXADD[10] <= 1'b1;                       // Set A10 high to enable auto precharge
-                sdram_MUXADD[08:00] <= ADD[18:07];              // Assign column address from bits [18:07] of input word address
+                sdram_MUXADD[11:00] <= ADD[18:07];              // Assign row address
             end
 
             stateWrite1:
             begin
-                sdram_MUXADD[10] <= 1'b1;                       // Set A10 high to enable auto precharge
                 sdram_MUXADD[08:00] <= ADD[06:00];              // Assign column address from the lower 7 bits of input word address
+                sdram_MUXADD[10] <= 1'b0;                       // Set A10 low to disable auto precharge
+                sdram_MUXADD[09] <= 1'b0;                       // Unused bits
+                sdram_MUXADD[11] <= 1'b0;                       // Unused bits
             end
 
             stateReadActive:
             begin
-                sdram_MUXADD[10] <= 1'b1;                       // Set A10 high to enable auto precharge
-                sdram_MUXADD[08:00] <= ADD[18:07];              // Assign column address from bits [18:07] of input word address
+                sdram_MUXADD[11:00] <= ADD[18:07];              // Assign row address
             end
 
             stateReadCmd:
             begin
-                sdram_MUXADD[10] <= 1'b1;                       // Set A10 high to enable auto precharge
                 sdram_MUXADD[08:00] <= ADD[06:00];              // Assign column address from the lower 7 bits of input word address
+                sdram_MUXADD[10] <= 1'b0;                       // Set A10 low to disable auto precharge
+                sdram_MUXADD[09] <= 1'b0;                       // Unused bits
+                sdram_MUXADD[11] <= 1'b0;                       // Unused bits
+            end
+
+            default:                                            // Don't care for other states
+            begin
+                sdram_MUXADD[10] <= 1'bx;                       // Don't care for other bits in this state
+                sdram_MUXADD[08:00] <= 9'bx;                    // Don't care for other bits in this state
+                sdram_MUXADD[09] <= 1'b0;                       // Unused bits
+                sdram_MUXADD[11] <= 1'b0;                       // Unused bits
+            end
+        endcase
+    end
+
+    // Combinational block to generate sdram_DQM signal
+    always_comb
+    begin
+        case (state)
+            stateRead1, stateWrite1:
+            begin
+                sdram_DQM <= BE[0];                             // Assign value in BE[0]
+            end
+
+            stateRead2, stateWrite2:
+            begin
+                sdram_DQM <= BE[1];                             // Assign value in BE[1]
+            end
+
+            stateRead3, stateWrite3:
+            begin
+                sdram_DQM <= BE[2];                             // Assign value in BE[2]
+            end
+
+            stateRead4, stateWrite4:
+            begin
+                sdram_DQM <= BE[3];                             // Assign value in BE[3]
+            end
+
+            default:
+            begin
+                sdram_DQM <= 1'bx;                             // Assign value in BE[3]
             end
         endcase
     end
