@@ -136,7 +136,7 @@ module sdramController(
 
             stateInitWait100us:
             begin
-                delayNanoseconds(wait100us, timeout);           // Call a function to cause a 100us delay
+                delayNanoseconds(wait100us, RESETn, timeout);   // Call a function to cause a 100us delay
                 sdram_CLKE <= 1'd1;                             // Set clock enable high
 
                 do
@@ -153,7 +153,7 @@ module sdramController(
 
             stateInitStartTrp:
             begin
-                delayNanoseconds(waitTrp, timeout);             // Call a function ot cause a 6ns delay
+                delayNanoseconds(waitTrp, RESETn, timeout);     // Call a function ot cause a 6ns delay
 
                 do
                     if (timeout) state <= stateInitRefresh1;    // Assign next state
@@ -168,7 +168,7 @@ module sdramController(
 
             stateInitStartTrfc1:
             begin
-                delayNanoseconds(waitTrfc, timeout);            // call a function to cause a 16us delay
+                delayNanoseconds(waitTrfc, RESETn, timeout);    // call a function to cause a 16us delay
 
                 do
                     if (timeout) state <= stateInitRefresh2;    // Assign next state
@@ -184,7 +184,7 @@ module sdramController(
 
             stateInitStartTrfc2:
             begin
-                delayNanoseconds(waitTrfc, timeout);            // call a function to cause a 16us delay
+                delayNanoseconds(waitTrfc, RESETn, timeout);    // call a function to cause a 16us delay
 
                 do
                     if (timeout)    state <= stateInitLMR;      // Assign next state
@@ -200,7 +200,7 @@ module sdramController(
 
             stateInitStartTmrd:
             begin
-                delayNanoseconds(waitTmrd, timeout);            // Wait for the commmand to be executed
+                delayNanoseconds(waitTmrd, RESETn, timeout);    // Wait for the commmand to be executed
 
                 do
                     if (timeout) state <= stateIdle;            // Exit the state machine and set IDLE state on completion
@@ -219,7 +219,7 @@ module sdramController(
 
             stateIdleStartTrr:
             begin
-                delayNanoseconds(waitTrr, timeout);             // Call a function to count Trr cycles
+                delayNanoseconds(waitTrr, RESETn, timeout);     // Call a function to count Trr cycles
 
                 do
                     if (timeout)    refresh_request <= 1'b1;    // Set refresh_request
@@ -248,7 +248,7 @@ module sdramController(
 
             stateAutoRefreshStartTrp:
             begin
-                delayNanoseconds(waitTrp, timeout);             // Call a function ot cause a 6ns delay
+                delayNanoseconds(waitTrp, RESETn, timeout);     // Call a function ot cause a 6ns delay
 
                 do
                     // Assign next state
@@ -263,7 +263,7 @@ module sdramController(
 
             stateAutoRefreshStartTrfc:
             begin
-                delayNanoseconds(waitTrfc, timeout);            // Call a function to cause a 16us delay
+                delayNanoseconds(waitTrfc, RESETn, timeout);    // Call a function to cause a 16us delay
                 refresh_request <= 1'b0;                        // Clear refresh request
 
                 do
@@ -293,7 +293,7 @@ module sdramController(
 
             stateWriteNop1:
             begin
-                delayNanoseconds(waitTrcd, timeout);            // Call function to delay
+                delayNanoseconds(waitTrcd, RESETn, timeout);    // Call function to delay
 
                 do
                     if (timeout) state <= stateWrite1;          // Assign next state
@@ -337,7 +337,7 @@ module sdramController(
 
             stateWriteStartTrp:
             begin
-                delayNanoseconds(waitTrp, timeout);             // Call a function ot cause a 6ns delay
+                delayNanoseconds(waitTrp, RESETn, timeout);     // Call a function ot cause a 6ns delay
 
                 do
                     if (timeout) state <= stateWriteNop3;       // Assign next state
@@ -368,7 +368,7 @@ module sdramController(
 
             stateReadNop1:
             begin
-                delayNanoseconds(waitTrcd, timeout);            // Call function to cause delay
+                delayNanoseconds(waitTrcd, RESETn, timeout);    // Call function to cause delay
 
                 do
                     if (timeout) state <= stateReadCmd;         // Assign next state
@@ -430,7 +430,7 @@ module sdramController(
 
             stateReadStartTrp:
             begin
-                delayNanoseconds(waitTrp, timeout);             // Call a function ot cause a 6ns delay
+                delayNanoseconds(waitTrp, RESETn, timeout);     // Call a function ot cause a 6ns delay
 
                 do
                     if (timeout) state <= stateReadNop5;        // Assign next state
