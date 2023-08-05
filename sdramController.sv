@@ -227,8 +227,8 @@ module sdramController(
 
                 // Set main state to Auto Refresh if Chip select is low (neither read nor write)
                 if (refresh_request && !CSn) state <= stateAutoRefresh;
-                else if (W_Rn)  state <= stateWrite;
-                else if (!W_Rn) state <= stateRead;
+                else if (!refresh_request && W_Rn)  state <= stateWrite;
+                else if (!refresh_request && !W_Rn) state <= stateRead;
             end
 
             /*=============================================================================================================*
