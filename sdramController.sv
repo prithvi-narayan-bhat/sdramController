@@ -11,7 +11,7 @@ module sdramController(
         inout wire [31:00] data,                // 32bit data to read/write         | from/to uP
         inout wire [07:00] sdram_DQ,            // 1byte bidirectional data         | from/to SDRAM
 
-        output reg ready,                       // Ready            | Active high   | to uP
+        output reg READYn,                       // Ready            | Active high   | to uP
         output reg sdram_CLK,                   // 100Mhz clock output              | to SDRAM
         output reg sdram_CLKE,                  // Clock enable                     | to SDRAM
         output reg sdram_DQM,                   // mux to select bank               | to SDRAM
@@ -60,21 +60,26 @@ module sdramController(
     parameter stateWritePrecharge       = 6'd26;
     parameter stateWriteStartTrp        = 6'd27;
     parameter stateWriteNop3            = 6'd28;
+    parameter stateWriteNop4            = 6'd29;
+    parameter stateWriteNop5            = 6'd30;
     // Read States
-    parameter stateRead                 = 6'd29;
-    parameter stateReadActive           = 6'd30;
-    parameter stateReadNop1             = 6'd31;
-    parameter stateReadCmd              = 6'd32;
-    parameter stateReadNop2             = 6'd33;
-    parameter stateReadNop3             = 6'd34;
-    parameter stateRead1                = 6'd35;
-    parameter stateRead2                = 6'd36;
-    parameter stateRead3                = 6'd37;
-    parameter stateRead4                = 6'd38;
-    parameter stateReadNop4             = 6'd39;
-    parameter stateReadPrecharge        = 6'd40;
-    parameter stateReadStartTrp         = 6'd41;
-    parameter stateReadNop5             = 6'd42;
+    parameter stateRead                 = 6'd31;
+    parameter stateReadActive           = 6'd32;
+    parameter stateReadNop1             = 6'd33;
+    parameter stateReadCmd              = 6'd34;
+    parameter stateReadNop2             = 6'd35;
+    parameter stateReadNop3             = 6'd37;
+    parameter stateRead1                = 6'd38;
+    parameter stateRead2                = 6'd39;
+    parameter stateRead3                = 6'd40;
+    parameter stateRead4                = 6'd41;
+    parameter stateReadNop4             = 6'd42;
+    parameter stateReadPrecharge        = 6'd43;
+    parameter stateReadStartTrp         = 6'd44;
+    parameter stateReadNop5             = 6'd45;
+    // Idle 2 states
+    parameter stateIdle2                = 6'd46;
+    parameter stateIdleStartTrr2        = 6'd47;
 
     /*
         1MHz clock
@@ -86,6 +91,7 @@ module sdramController(
     parameter waitTmrd  = 12'd2;                // 20ns/10ns  = 2 cycles
     parameter waitTrr   = 12'd1563;             // 15.625us/10ns = 1563 cycles
     parameter waitTrcd  = 12'd2;                // 20ns/10ns  = 2 cycles
+    parameter waitTwr   = 12'd2;                // 20ns/10ns  = 2 cycles
 
 
     // SDRAM commands
@@ -102,16 +108,12 @@ module sdramController(
     reg [07:00] temp_DQ;                        // Temporary register to hold DQ value
     reg [31:00] temp_data;                      // Temporary register to hold data
 
-    assign sdram_DQ = temp_DQ;
-    assign data = temp_data;
-    assign sdram_CSn = CSn;                     // Assign as is
-
     always_ff @ (posedge clk)
     begin
         if (!RESETn)
         begin
             state = stateReset;                                 // Set Reset state on reset
-            ready <= 1'b0;                                      // Clear ready
+            READYn <= 1'b1;                                     // Clear READYn
         end
 
         else            lock = 1'b0;                            // Clear lock signal
@@ -123,12 +125,14 @@ module sdramController(
             stateReset:
             begin
                 state <= stateResetWaitLock;                    // Move to next state on reset
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateResetWaitLock:                                 // On state INIT
             begin
                 lock = 1'b1;                                    // Generate lock signal
                 refresh_request <= 1'b1;                        // Set refresh resquest on reset
+                READYn <= 1'b1;                                 // Set READYn
 
                 if (lock)   state <= stateInitWait100us;        // Move to next state on lock signal
                 else        state <= stateResetWaitLock;        // Remain in same state
@@ -137,6 +141,7 @@ module sdramController(
             stateInitWait100us:
             begin
                 delayNanoseconds(wait100us, RESETn, timeout);   // Call a function to cause a 100us delay
+                READYn <= 1'b1;                                 // Set READYn
                 sdram_CLKE <= 1'd1;                             // Set clock enable high
 
                 do
@@ -149,11 +154,13 @@ module sdramController(
                 sdram_CLKE <= 1'b1;                             // Set clock enable high
                 state <= stateInitStartTrp;                     // Assign next state
                 sdram_CLKE <= 1'd1;                             // Set clock enable high
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateInitStartTrp:
             begin
                 delayNanoseconds(waitTrp, RESETn, timeout);     // Call a function ot cause a 6ns delay
+                READYn <= 1'b1;                                 // Set READYn
 
                 do
                     if (timeout) state <= stateInitRefresh1;    // Assign next state
@@ -164,11 +171,13 @@ module sdramController(
             begin
                 state <= stateInitStartTrfc1;                   // Assign next state
                 sdram_CLKE <= 1'd1;                             // Set clock enable high
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateInitStartTrfc1:
             begin
                 delayNanoseconds(waitTrfc, RESETn, timeout);    // call a function to cause a 16us delay
+                READYn <= 1'b1;                                 // Set READYn
 
                 do
                     if (timeout) state <= stateInitRefresh2;    // Assign next state
@@ -180,6 +189,7 @@ module sdramController(
             begin
                 state <= stateInitStartTrfc2;                   // Assign next state
                 sdram_CLKE <= 1'd1;                             // Set clock enable high
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateInitStartTrfc2:
@@ -190,17 +200,20 @@ module sdramController(
                     if (timeout)    state <= stateInitLMR;      // Assign next state
                 while (!timeout);                               // Wait until timeout has occured
                 sdram_CLKE <= 1'd1;                             // Set clock enable high
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateInitLMR:
             begin
                 state <= stateInitStartTmrd;                    // Assign next state
                 sdram_CLKE <= 1'd1;                             // Set clock enable high
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateInitStartTmrd:
             begin
                 delayNanoseconds(waitTmrd, RESETn, timeout);    // Wait for the commmand to be executed
+                READYn <= 1'b1;                                 // Set READYn
 
                 do
                     if (timeout) state <= stateIdle;            // Exit the state machine and set IDLE state on completion
@@ -215,11 +228,13 @@ module sdramController(
             begin
                 refresh_request <= 1'b0;                        // Clear refresh_request
                 state <= stateIdleStartTrr;
+                READYn <= 1'b0;                                 // Set READYn
             end
 
             stateIdleStartTrr:
             begin
                 delayNanoseconds(waitTrr, RESETn, timeout);     // Call a function to count Trr cycles
+                READYn <= 1'b1;                                 // Set READYn
 
                 do
                     if (timeout)    refresh_request <= 1'b1;    // Set refresh_request
@@ -229,6 +244,30 @@ module sdramController(
                 if (refresh_request && !CSn) state <= stateAutoRefresh;
                 else if (!refresh_request && W_Rn)  state <= stateWrite;
                 else if (!refresh_request && !W_Rn) state <= stateRead;
+                else state <= stateIdle;
+            end
+
+            stateIdle2:
+            begin
+                refresh_request <= 1'b0;                        // Clear refresh_request
+                state <= stateIdleStartTrr2;                    // Assign next state
+                READYn <= 1'b0;                                 // Clear READYn
+            end
+
+            stateIdleStartTrr2:
+            begin
+                delayNanoseconds(waitTrr, RESETn, timeout);     // Call a function to count Trr cycles
+                READYn <= 1'b1;                                 // Set READYn
+
+                do
+                    if (timeout)    refresh_request <= 1'b1;    // Set refresh_request
+                while (!timeout);
+
+                // Set main state to Auto Refresh if Chip select is low (neither read nor write)
+                if (refresh_request && !CSn) state <= stateAutoRefresh;
+                else if (!refresh_request && W_Rn)  state <= stateWrite;
+                else if (!refresh_request && !W_Rn) state <= stateRead;
+                else state <= stateIdle;
             end
 
             /*=============================================================================================================*
@@ -238,17 +277,20 @@ module sdramController(
             stateAutoRefresh:
             begin
                 state <= stateAutoRefreshPrecharge;
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateAutoRefreshPrecharge:
             begin
                 sdram_CLKE <= 1'b1;                             // Set clock enable high
                 state <= stateAutoRefreshStartTrp;              // Assign next state
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateAutoRefreshStartTrp:
             begin
                 delayNanoseconds(waitTrp, RESETn, timeout);     // Call a function ot cause a 6ns delay
+                READYn <= 1'b1;                                 // Set READYn
 
                 do
                     // Assign next state
@@ -259,6 +301,7 @@ module sdramController(
             stateAutoRefreshRefresh:
             begin
                 state <= stateAutoRefreshStartTrfc;             // Assign next state
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateAutoRefreshStartTrfc:
@@ -270,9 +313,9 @@ module sdramController(
                     if (timeout)
                     begin
                         state <= stateIdle;                     // Return to IDLE state
-                        ready <= 1'b1;                          // Set ready
+                        READYn <= 1'b0;                         // Clear READYn
                     end
-                    else ready <= 1'b0;                         // Clear ready
+                    else READYn <= 1'b1;                         // Set READYn
                 while (!timeout);
             end
 
@@ -283,17 +326,20 @@ module sdramController(
             begin
                 sdram_BA <= ADD[20:19];                         // Set bits 21:20 of input address to Bank enable
                 state <= stateWriteActive;                      // Assign next state
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateWriteActive:
             begin
                 sdram_BA <= ADD[20:19];                         // Set bits 21:20 of input address to Bank enable
                 state <= stateWriteNop1;                        // Assign next state
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateWriteNop1:
             begin
                 delayNanoseconds(waitTrcd, RESETn, timeout);    // Call function to delay
+                READYn <= 1'b1;                                 // Set READYn
 
                 do
                     if (timeout) state <= stateWrite1;          // Assign next state
@@ -304,17 +350,20 @@ module sdramController(
             begin
                 temp_DQ <= data[07:00];                         // Send out the lower byte
                 state <= stateWrite2;                           // Assign nextt state
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateWrite2:
             begin
                 temp_DQ <= data[15:08];                         // Send out the second byte
                 state <= stateWrite3;                           // Assign nextt state
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateWrite3:
             begin
                 temp_DQ <= data[23:16];                         // Send out the third byte
+                READYn <= 1'b1;                                 // Set READYn
                 state <= stateWrite4;                           // Assign nextt state
             end
 
@@ -322,32 +371,49 @@ module sdramController(
             begin
                 temp_DQ <= data[31:24];                         // Send out the fourth byte
                 state <= stateWriteNop2;                        // Assign nextt state
+                READYn <= 1'b1;                                 // Set READYn
             end
 
             stateWriteNop2:
             begin
-                state <= stateWritePrecharge;                   // Assign next state
-            end
+                READYn <= 1'b1;                                 // Set READYn
+                delayNanoseconds(waitTwr, RESETn, timeout);     // Call a function to cause a 100us delay
 
-            stateWritePrecharge:                                // Initiate a manual precharge after Read operation
-            begin
-                sdram_CLKE <= 1'b1;                             // Set clock enable high
-                state      <= stateWriteStartTrp;               // Assign next state
+                do
+                    if (timeout) state <= stateWriteStartTrp;   // Assign next state
+                while (!timeout);                               // Wait for the delay to occur
             end
 
             stateWriteStartTrp:
             begin
                 delayNanoseconds(waitTrp, RESETn, timeout);     // Call a function ot cause a 6ns delay
+                READYn <= 1'b1;                                 // Set READYn
 
                 do
-                    if (timeout) state <= stateWriteNop3;       // Assign next state
+                    if (timeout)
+                    begin
+                        READYn <= 1'b0;                         // Clear READYn
+                        state <= stateWriteNop3;                // Assign next state
+                    end
                 while (!timeout);
             end
 
             stateWriteNop3:
             begin
-                state <= stateIdle;                             // Assign next state
-                ready <= 1'b1;                                  // Set ready
+                READYn <= 1'b0;                                 // Clear READYn
+                state <= stateWriteNop4;                        // Assign next state
+            end
+
+            stateWriteNop4:
+            begin
+                READYn <= 1'b0;                                 // Clear READYn
+                state <= stateWriteNop5;                        // Assign next state
+            end
+
+            stateWriteNop5:
+            begin
+                READYn <= 1'b0;                                 // Clear READYn
+                state <= stateIdle2;                            // Assign next state
             end
 
             /*=============================================================================================================*
@@ -414,18 +480,7 @@ module sdramController(
             stateRead4:
             begin
                 temp_data[31:24] <= sdram_DQ;                   // Store the read value
-                state <= stateReadNop4;                         // Assign next state
-            end
-
-            stateReadNop4:
-            begin
-                state <= stateReadPrecharge;                    // Assign next state
-            end
-
-            stateReadPrecharge:                                 // Initiate a manual precharge after Read operation
-            begin
-                sdram_CLKE <= 1'b1;                             // Set clock enable high
-                state      <= stateReadStartTrp;                // Assign next state
+                state <= stateReadStartTrp;                     // Assign next state
             end
 
             stateReadStartTrp:
@@ -433,14 +488,24 @@ module sdramController(
                 delayNanoseconds(waitTrp, RESETn, timeout);     // Call a function ot cause a 6ns delay
 
                 do
-                    if (timeout) state <= stateReadNop5;        // Assign next state
+                    if (timeout)
+                    begin
+                        READYn <= 1'b0;                         // Clear READYn
+                        state <= stateReadNop4;                 // Assign next state
+                    end
                 while (!timeout);
+            end
+
+            stateReadNop4:
+            begin
+                state <= stateReadNop5;                         // Assign next state
+                READYn <= 1'b0;                                 // Clear READYn
             end
 
             stateReadNop5:
             begin
-                state <= stateIdle;                             // Assign next state
-                ready <= 1'b1;                                  // Set ready
+                state <= stateIdle2;                            // Assign next state
+                READYn <= 1'b0;                                 // Clear READYn
             end
         endcase
     end
@@ -449,6 +514,9 @@ module sdramController(
      *                                               End of FSM                                                    *
      *=============================================================================================================*/
 
+    assign sdram_DQ = temp_DQ;                                  // Assign write data
+    assign data = temp_data;                                    // Assign the read data
+    assign sdram_CSn = CSn;                                     // Assign as is
 
     // Combinational block to set 3 bit sdram_CMD bits
     always_comb
@@ -459,7 +527,7 @@ module sdramController(
                 sdram_CMD <= cmd_NOP;                           // Issue NOP command
             end
 
-            stateInitPrecharge, stateAutoRefreshPrecharge, stateWritePrecharge, stateReadPrecharge:
+            stateInitPrecharge, stateAutoRefreshPrecharge, stateWritePrecharge:
             begin
                 sdram_CMD <= cmd_PRECHARGE;                     // Issue Precharge command
             end
