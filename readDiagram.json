@@ -1,0 +1,24 @@
+{ "signal" : [
+  {name: "CLK",  			wave: "pP.............", "period": 1},
+  {name: "state", 			wave: "x=============x", data: ["idl", "act", "np1", "rcmd", "np2", "rd1", "rd2", "rd3", "rd4", "np4", "np5", "np6", "idl2"], period: 1, phase: 0.5},
+
+  {name: "CMD", 	  		wave: "x=============x", data: ["nop", "act", "nop", "rd", "nop", "nop", "nop", "pch", "nop", "nop", "nop", "nop", "nop"], period: 1, phase: 0.5},
+  {name: "CS#",             wave: "0..............", period: 1, phase: 0.5},
+  {name: "RAS#",            wave: "x.01....01.....", period: 1, phase: 0.5},
+  {name: "CAS#",            wave: "x.1.01.........", period: 1, phase: 0.5},
+  {name: "WE#",             wave: "x.1.....01.....",period: 1, phase: 0.5},
+
+  {name: "A10",       		wave: "x.=x1x.........", data: ["row"], period: 1, phase: 0.5},
+  {name: "A0-9, A11", 		wave: "x.=x=x.........", data: ["row", "col"],  period: 1, phase: 0.5},
+  {name: "BA0-1", 	  		wave: "x.=x=x.........", data: ["BA", "BA"],  period: 1, phase: 0.5},
+
+  {name: "DQM", 			wave: "x...0...x......", period: 1, phase: 0.5, phase: 0.5},
+  {name: "DQ", 				wave: "z.....====z....", data: ["bt0", "bt1", "bt2", "bt3"], period: 1, phase: 0.5, phase: 0.5},
+  {name: "RDY#", 			wave: "x1........0...x", period: 1, phase: 0.5},
+],
+  head:{
+  period: 2,
+  tick: 0,
+  every: 1
+  }
+}
