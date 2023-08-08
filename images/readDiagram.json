@@ -2,7 +2,7 @@
   {"name": "CLK",       "wave": "pP.............", "period": 1},
   {"name": "state",     "wave": "x=============x", "data": ["idl", "act", "np1", "rcmd", "np2", "rd1", "rd2", "rd3", "rd4", "np4", "np5", "np6", "idl2"], "period": 1, "phase": 0.5},
 
-  {"name": "CMD",       "wave": "x=============x", "data": ["nop", "act", "nop", "rd", "nop", "nop", "nop", "pch", "nop", "nop", "nop", "nop", "nop"], "period": 1, "phase": 0.5},
+  {"name": "CMD",       "wave": "x=============x", "data": ["NOP", "ACT", "NOP", "RD", "NOP", "NOP", "NOP", "PCH", "NOP", "NOP", "NOP", "NOP", "NOP"], "period": 1, "phase": 0.5},
   {"name": "CS#",       "wave": "0..............", "period": 1, "phase": 0.5},
   {"name": "RAS#",      "wave": "x.01....01.....", "period": 1, "phase": 0.5},
   {"name": "CAS#",      "wave": "x.1.01.........", "period": 1, "phase": 0.5},
