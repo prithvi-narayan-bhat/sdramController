@@ -1,8 +1,8 @@
 { "signal" : [
-  {"name": "CLK",  			"wave": "pP.............", "period": 1},
-  {"name": "state", 		"wave": "x=============x", "data": ["idl", "act", "np1", "rcmd", "np2", "rd1", "rd2", "rd3", "rd4", "np4", "np5", "np6", "idl2"], "period": 1, "phase": 0.5},
+  {"name": "CLK",       "wave": "pP.............", "period": 1},
+  {"name": "state",     "wave": "x=============x", "data": ["idl", "act", "np1", "rcmd", "np2", "rd1", "rd2", "rd3", "rd4", "np4", "np5", "np6", "idl2"], "period": 1, "phase": 0.5},
 
-  {"name": "CMD", 	  	"wave": "x=============x", "data": ["nop", "act", "nop", "rd", "nop", "nop", "nop", "pch", "nop", "nop", "nop", "nop", "nop"], "period": 1, "phase": 0.5},
+  {"name": "CMD",       "wave": "x=============x", "data": ["nop", "act", "nop", "rd", "nop", "nop", "nop", "pch", "nop", "nop", "nop", "nop", "nop"], "period": 1, "phase": 0.5},
   {"name": "CS#",       "wave": "0..............", "period": 1, "phase": 0.5},
   {"name": "RAS#",      "wave": "x.01....01.....", "period": 1, "phase": 0.5},
   {"name": "CAS#",      "wave": "x.1.01.........", "period": 1, "phase": 0.5},
@@ -10,11 +10,11 @@
 
   {"name": "A10",       "wave": "x.=x0x..1x.....", "data": ["ROW"], "period": 1, "phase": 0.5},
   {"name": "A0-9, A11", "wave": "x.=x=x.........", "data": ["ROW", "COL"],  "period": 1, "phase": 0.5},
-  {"name": "BA0-1", 	  "wave": "x.=x=x..=x.....", "data": ["Bank", "Bank", "Bank"],  "period": 1, "phase": 0.5},
+  {"name": "BA0-1",     "wave": "x.=x=x..=x.....", "data": ["Bank", "Bank", "Bank"],  "period": 1, "phase": 0.5},
 
-  {"name": "DQM", 			"wave": "x...0...x......", "period": 1, "phase": 0.5},
-  {"name": "DQ", 				"wave": "z.....====z....", "data": ["D0", "D1", "D2", "D3"], "period": 1, "phase": 0.5},
-  {"name": "RDY#", 			"wave": "x1........0...x", "period": 1, "phase": 0.5},
+  {"name": "DQM",       "wave": "x...0...x......", "period": 1, "phase": 0.5},
+  {"name": "DQ",        "wave": "z.....====z....", "data": ["D0", "D1", "D2", "D3"], "period": 1, "phase": 0.5},
+  {"name": "RDY#",      "wave": "x1........0...x", "period": 1, "phase": 0.5},
   {                     "node": "..A.B.C.F.G....", "period": 1, "phase": 0.15},
   {                     "node": "..D.....E......", "period": 1, "phase": 0.15}
 ],
