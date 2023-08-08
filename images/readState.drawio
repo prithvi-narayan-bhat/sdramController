@@ -1,0 +1,125 @@
+<mxfile host="Electron" modified="2023-08-08T21:57:28.294Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.3.7 Chrome/112.0.5615.204 Electron/24.5.0 Safari/537.36" etag="eBIk21qO50rOena-qeZj" version="21.3.7" type="device">
+  <diagram name="Page-1" id="FwPhwjOr8V4SNt_Zpmo2">
+    <mxGraphModel dx="683" dy="464" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="lrx6KI3qL2--OfaduSLe-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="lrx6KI3qL2--OfaduSLe-1" target="lrx6KI3qL2--OfaduSLe-5" edge="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="200" y="139.9999999999999" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-1" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;Idle&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="120" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-2" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;CKE = 1&lt;br&gt;CMD = NOP&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="110" y="160" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="lrx6KI3qL2--OfaduSLe-5" target="lrx6KI3qL2--OfaduSLe-6" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-5" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;Active&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-24" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="lrx6KI3qL2--OfaduSLe-6" target="lrx6KI3qL2--OfaduSLe-7" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-6" value="&lt;font face=&quot;Calibri&quot;&gt;&lt;span style=&quot;font-size: 8px;&quot;&gt;Nop1&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GNGCNCmRoBVis1hm-LkJ-4" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="lrx6KI3qL2--OfaduSLe-7" target="lrx6KI3qL2--OfaduSLe-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-7" value="&lt;font face=&quot;Calibri&quot;&gt;&lt;span style=&quot;font-size: 8px;&quot;&gt;readCmd&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="360" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GNGCNCmRoBVis1hm-LkJ-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="lrx6KI3qL2--OfaduSLe-9" target="lrx6KI3qL2--OfaduSLe-11">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="460" y="200" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-9" value="&lt;font face=&quot;Calibri&quot;&gt;&lt;span style=&quot;font-size: 8px;&quot;&gt;Nop2&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="440" y="120" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-28" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="lrx6KI3qL2--OfaduSLe-11" target="lrx6KI3qL2--OfaduSLe-12" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-11" value="&lt;font face=&quot;Calibri&quot;&gt;&lt;span style=&quot;font-size: 8px;&quot;&gt;Read1&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="440" y="200" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" parent="1" source="lrx6KI3qL2--OfaduSLe-12" target="lrx6KI3qL2--OfaduSLe-13" edge="1">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-12" value="&lt;font face=&quot;Calibri&quot;&gt;&lt;span style=&quot;font-size: 8px;&quot;&gt;Read2&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="360" y="200" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GNGCNCmRoBVis1hm-LkJ-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="lrx6KI3qL2--OfaduSLe-13" target="lrx6KI3qL2--OfaduSLe-14">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-13" value="&lt;font face=&quot;Calibri&quot;&gt;&lt;span style=&quot;font-size: 8px;&quot;&gt;Read3&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="200" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GNGCNCmRoBVis1hm-LkJ-6" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="lrx6KI3qL2--OfaduSLe-14" target="lrx6KI3qL2--OfaduSLe-20">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-14" value="&lt;font face=&quot;Calibri&quot;&gt;&lt;span style=&quot;font-size: 8px;&quot;&gt;Read4&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="200" y="200" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GNGCNCmRoBVis1hm-LkJ-7" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;" edge="1" parent="1" source="lrx6KI3qL2--OfaduSLe-20" target="lrx6KI3qL2--OfaduSLe-34">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-20" value="&lt;font face=&quot;Calibri&quot;&gt;&lt;span style=&quot;font-size: 8px;&quot;&gt;Nop3&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="120" y="200" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GNGCNCmRoBVis1hm-LkJ-10" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="lrx6KI3qL2--OfaduSLe-34" target="GNGCNCmRoBVis1hm-LkJ-9">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-34" value="&lt;font face=&quot;Calibri&quot;&gt;&lt;span style=&quot;font-size: 8px;&quot;&gt;Nop4&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="120" y="280" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-37" value="&lt;font face=&quot;Calibri&quot;&gt;&lt;span style=&quot;font-size: 8px;&quot;&gt;Idle2&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" parent="1" vertex="1">
+          <mxGeometry x="280" y="280" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-39" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;CKE&amp;nbsp;= 1&lt;br&gt;CMD = ACTIVE&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="185" y="160" width="70" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-40" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;CKE&amp;nbsp;= 1&lt;br&gt;CMD&amp;nbsp;= NOP&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="270" y="160" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-41" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;CKE&amp;nbsp;= 1&lt;br&gt;CMD&amp;nbsp;= READ&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="350" y="160" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-47" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;CKE&amp;nbsp;= 1&lt;br&gt;CMD&amp;nbsp;= NOP&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="430" y="240" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-48" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;CKE&amp;nbsp;= 1&lt;br&gt;CMD&amp;nbsp;= NOP&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="350" y="240" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-49" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;CKE&amp;nbsp;= 1&lt;br&gt;CMD&amp;nbsp;= PRECHARGE&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="260" y="240" width="90" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-50" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;CKE&amp;nbsp;= 1&lt;br&gt;CMD&amp;nbsp;= NOP&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="190" y="240" width="60" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="lrx6KI3qL2--OfaduSLe-54" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;CKE&amp;nbsp;= 1&lt;br&gt;CMD&amp;nbsp;= NOP&lt;br&gt;RDY# = 0&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" parent="1" vertex="1">
+          <mxGeometry x="60" y="190" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GNGCNCmRoBVis1hm-LkJ-11" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;" edge="1" parent="1" source="GNGCNCmRoBVis1hm-LkJ-9" target="lrx6KI3qL2--OfaduSLe-37">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="GNGCNCmRoBVis1hm-LkJ-9" value="&lt;font face=&quot;Calibri&quot;&gt;&lt;span style=&quot;font-size: 8px;&quot;&gt;Nop4&lt;/span&gt;&lt;/font&gt;" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="200" y="280" width="40" height="40" as="geometry" />
+        </mxCell>
+        <mxCell id="GNGCNCmRoBVis1hm-LkJ-13" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;CKE&amp;nbsp;= 1&lt;br&gt;CMD&amp;nbsp;= NOP&lt;br&gt;RDY# = 0&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="110" y="320" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GNGCNCmRoBVis1hm-LkJ-14" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;CKE&amp;nbsp;= 1&lt;br&gt;CMD&amp;nbsp;= NOP&lt;br&gt;RDY# = 0&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="190" y="320" width="60" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="GNGCNCmRoBVis1hm-LkJ-15" value="&lt;font style=&quot;font-size: 8px;&quot; data-font-src=&quot;https://fonts.googleapis.com/css?family=Calibri&quot; face=&quot;Calibri&quot;&gt;CKE&amp;nbsp;= 1&lt;br&gt;CMD&amp;nbsp;= NOP&lt;br&gt;RDY# = 0&lt;br&gt;&lt;/font&gt;" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="270" y="320" width="60" height="60" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

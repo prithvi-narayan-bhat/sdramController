@@ -1,0 +1,91 @@
+<mxfile host="Electron" modified="2023-08-05T01:54:32.168Z" agent="Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) draw.io/21.3.7 Chrome/112.0.5615.204 Electron/24.5.0 Safari/537.36" etag="tHesW2KlhfCTQDQclbjP" version="21.3.7" type="device">
+  <diagram name="Page-1" id="_ZjIrpHBJTPhXCuOwHMv">
+    <mxGraphModel dx="1114" dy="975" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1169" pageHeight="827" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-1" value="Decoder" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="310" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-2" value="Bank Address" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="430" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-3" value="X X" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="810" y="270" width="50" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-4" value="Row Address" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="550" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-5" value="Column Address" style="rounded=1;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+          <mxGeometry x="670" y="270" width="120" height="60" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-6" value="A0" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="830" y="240" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-7" value="A1" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="800" y="240" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-8" value="A2" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="760" y="240" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-9" value="A8" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="660" y="240" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-10" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.curlyBrace;whiteSpace=wrap;strokeColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="670" y="220" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-11" value="7bits" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="705" y="188" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-12" value="A9" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="640" y="240" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-13" value="A20" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="545" y="240" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-14" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.curlyBrace;whiteSpace=wrap;strokeColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="550" y="218" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-15" value="12bits" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="580" y="188" width="60" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-17" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.curlyBrace;whiteSpace=wrap;strokeColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="430" y="220" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-18" value="2bits" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="465" y="190" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-19" value="A21" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="515" y="240" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-20" value="A22" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="430" y="238" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-21" value="A23" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="400" y="238" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-22" value="A31" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="300" y="238" width="40" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-23" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.curlyBrace;whiteSpace=wrap;strokeColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="310" y="218" width="120" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-24" value="9bits" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="345" y="180" width="50" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-25" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.curlyBrace;whiteSpace=wrap;strokeColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="300" y="80" width="560" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-26" value="Word Address" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="530" y="50" width="100" height="30" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-27" value="" style="verticalLabelPosition=bottom;shadow=0;dashed=0;align=center;html=1;verticalAlign=top;strokeWidth=1;shape=mxgraph.mockup.markup.curlyBrace;whiteSpace=wrap;strokeColor=#999999;" vertex="1" parent="1">
+          <mxGeometry x="310" y="160" width="480" height="20" as="geometry" />
+        </mxCell>
+        <mxCell id="ifnXDzlfPC8TqPPtGeOD-28" value="Input to SDRAM Controller" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="1">
+          <mxGeometry x="465" y="118" width="170" height="30" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
