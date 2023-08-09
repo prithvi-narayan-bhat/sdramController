@@ -1,0 +1,15 @@
+{ "signal" : [
+  {"name": "CLK",               "wave": "P...|.|.",  "period": 1},
+  {"name": "state",             "wave": "x===|===x", "data": ["idl", "pch", "np1", "arf", "np2", "idl"], period: 1, "phase": 0.5},
+
+  {"name": "CMD",               "wave": "x===|===x", "data": ["NOP", "PCH", "NOP", "RFS", "NOP", "NOP"], "period": 1, "phase": 0.5},
+  {"name": "CS#",               "wave": "0...|....", "period": 1, "phase": 0.5},
+  {"name": "RAS#",              "wave": "x101|...x", "period": 1, "phase": 0.5},
+  {"name": "CAS#",              "wave": "x1..|01.x", "period": 1, "phase": 0.5},
+  {"name": "WE#",               "wave": "x101|...x", "period": 1, "phase": 0.5},
+
+  {"name": "refresh_request",   "wave": "x01.|.0.x", "period": 1, "phase": 0.5},
+  {"name": "A10",               "wave": "x.1x|x...", "period": 1, "phase": 0.5},
+  {"name": "A0-9,11",           "wave": "x...|....", "period": 1 , "phase": 0.5},
+  {"name": "BA0-1",             "wave": "x.=x|....", "data": ["Bank"], "period": 1 , "phase": 0.5},
+]}
