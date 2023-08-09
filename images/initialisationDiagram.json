@@ -1,18 +1,28 @@
 { "signal" : [
-  {"name": "CLK",       "wave": "P..|....|..|.....", "period": 1},
-  {"name": "CKE",       "wave": "x.01.............", "period": 1, "phase": 0.5},
+  {"name": "CLK",       "wave": "P..|....|..|....", "period": 1},
+  {"name": "CKE",       "wave": "x01.............", "period": 1, "phase": 0.5},
 
-  {"name": "state",     "wave": "x===|====|==|===x", "data": ["rst", "lck", "wus", "pch", "nop1", "arf1", "nop2", "arf2", "nop3", "lmr", "nop4", "idl"], "phase": 0.5},
-  {"name": "CMD",       "wave": "x.==|====|==|===x", "data": ["nop", "nop", "pch", "nop", "rfs", "nop", "rfs", "nop", "lmr", "nop", "nop"], "period": 1, "phase": 0.5},
+  {"name": "state",     "wave": "x==|====|==|===x", "data": ["lck", "wus", "pch", "nop1", "arf1", "nop2", "arf2", "nop3", "lmr", "nop4", "idl"], "phase": 0.5},
+  {"name": "CMD",       "wave": "x==|====|==|===x", "data": ["NOP","NOP", "PCH", "NOP", "RFS", "NOP", "RFS", "NOP", "LMR", "NOP", "NOP"], "period": 1, "phase": 0.5},
 
-  {"name": "CS#",       "wave": "0...|....|..|....", "period": 1, "phase": 0.5},
-  {"name": "RAS#",      "wave": "x.1.|0..1|01|01..", "period": 1, "phase": 0.5},
-  {"name": "CAS#",      "wave": "x.1.|..01|01|01..", "period": 1, "phase": 0.5},
-  {"name": "WE#",       "wave": "x.1.|01..|..|01..", "period": 1, "phase": 0.5},
+  {"name": "CS#",       "wave": "0..|....|..|....", "period": 1, "phase": 0.5},
+  {"name": "RAS#",      "wave": "x1.|0..1|01|01..", "period": 1, "phase": 0.5},
+  {"name": "CAS#",      "wave": "x1.|..01|01|01..", "period": 1, "phase": 0.5},
+  {"name": "WE#",       "wave": "x1.|01..|..|01..", "period": 1, "phase": 0.5},
 
-  {"name": "A10",       "wave": "x...|1x..|..|=x..", "data": ["code"],        "period": 1, "phase": 0.5},
-  {"name": "A0-9,11",   "wave": "x...|....|..|=x..", "data": ["code"], "period": 1, "phase": 0.5},
-  {"name": "BA0-1",     "wave": "x...|=x..|..|....", "data": ["Bank"], "period": 1, "phase": 0.5},
+  {"name": "A10",       "wave": "x..|1x..|..|=x..", "data": ["code"], "period": 1, "phase": 0.5},
+  {"name": "A0-9,11",   "wave": "x..|....|..|=x..", "data": ["code"], "period": 1, "phase": 0.5},
+  {"name": "BA0-1",     "wave": "x..|=x..|..|....", "data": ["Bank"], "period": 1, "phase": 0.5},
 
-  {"name": "LOCK",      "wave": "x.01|....|..|....", "period": 1, "phase": 0.5},
-],}
+  {"name": "LOCK",      "wave": "x01|....|..|....", "period": 1, "phase": 0.5},
+  
+  {                     "node": "..F.A.B..C..D.E.", "period": 1, "phase": 0.15}
+  ],  
+  "edge" : [
+  "A+B tRP",
+  "B+C tRFC",
+  "C+D tRFC",
+  "D+E tMRD",
+  "F+A 100μs"
+  ]
+}
